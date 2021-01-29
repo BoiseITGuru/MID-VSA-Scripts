@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ScriptExport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.kaseya.com/vsa/2008/12/Scripting">
+  <Folder name="Windows 10 Power Options" treePres="3">
+    <Procedure name="Windows - Set Power Options" treePres="3" id="891357802" folderId="695516444274939" treeFullPath="Kaseya Automation Team.Windows 10 Power Options">
+      <Body description="The procedure changes the settings of the active power plan to the values that you specify in minutes (except for the Lid actions).&#xA;Be aware that settings set by a GPO take precedence over settings set manually.&#xA;&#xA;Vladislav Semko">
+        <Statement description="The procedure changes the settings of the active power scheme to the values specified in minutes (except for the Lid and Power button actions).&#xD;&#xA;Be aware that settings set by a GPO take precedence over settings set manually.&#xD;&#xA;Version 0.1&#xD;&#xA;Unattended sleep timeout in minutes. 0 - Never" name="GetVariable" continueOnFail="false">
+          <Parameter xsi:type="EnumParameter" name="VariableType" value="ConstantValue" />
+          <Parameter xsi:type="StringParameter" name="SourceContent" value="0" />
+          <Parameter xsi:type="StringParameter" name="VariableName" value="SleepOnPower" />
+        </Statement>
+        <Statement name="GetVariable" continueOnFail="false">
+          <Parameter xsi:type="EnumParameter" name="VariableType" value="ConstantValue" />
+          <Parameter xsi:type="StringParameter" name="SourceContent" value="2" />
+          <Parameter xsi:type="StringParameter" name="VariableName" value="SleepOnBattery" />
+        </Statement>
+        <Statement description="Monitor timeout in minutes. 0 - Never" name="GetVariable" continueOnFail="false">
+          <Parameter xsi:type="EnumParameter" name="VariableType" value="ConstantValue" />
+          <Parameter xsi:type="StringParameter" name="SourceContent" value="0" />
+          <Parameter xsi:type="StringParameter" name="VariableName" value="DisplayOnPower" />
+        </Statement>
+        <Statement name="GetVariable" continueOnFail="false">
+          <Parameter xsi:type="EnumParameter" name="VariableType" value="ConstantValue" />
+          <Parameter xsi:type="StringParameter" name="SourceContent" value="5" />
+          <Parameter xsi:type="StringParameter" name="VariableName" value="DisplayOnBattery" />
+        </Statement>
+        <Statement description="Standby timeout in minutes. 0 - Never" name="GetVariable" continueOnFail="false">
+          <Parameter xsi:type="EnumParameter" name="VariableType" value="ConstantValue" />
+          <Parameter xsi:type="StringParameter" name="SourceContent" value="0" />
+          <Parameter xsi:type="StringParameter" name="VariableName" value="StandbyOnPower" />
+        </Statement>
+        <Statement name="GetVariable" continueOnFail="false">
+          <Parameter xsi:type="EnumParameter" name="VariableType" value="ConstantValue" />
+          <Parameter xsi:type="StringParameter" name="SourceContent" value="15" />
+          <Parameter xsi:type="StringParameter" name="VariableName" value="StandbyOnBattery" />
+        </Statement>
+        <Statement description="HDD timeout in minutes. 0 - Never" name="GetVariable" continueOnFail="false">
+          <Parameter xsi:type="EnumParameter" name="VariableType" value="ConstantValue" />
+          <Parameter xsi:type="StringParameter" name="SourceContent" value="0" />
+          <Parameter xsi:type="StringParameter" name="VariableName" value="HDDOnPower" />
+        </Statement>
+        <Statement name="GetVariable" continueOnFail="false">
+          <Parameter xsi:type="EnumParameter" name="VariableType" value="ConstantValue" />
+          <Parameter xsi:type="StringParameter" name="SourceContent" value="10" />
+          <Parameter xsi:type="StringParameter" name="VariableName" value="HDDOnBattery" />
+        </Statement>
+        <Statement description="Hibernate timeout in minutes. 0 - Never" name="GetVariable" continueOnFail="false">
+          <Parameter xsi:type="EnumParameter" name="VariableType" value="ConstantValue" />
+          <Parameter xsi:type="StringParameter" name="SourceContent" value="0" />
+          <Parameter xsi:type="StringParameter" name="VariableName" value="HibernateOnPower" />
+        </Statement>
+        <Statement name="GetVariable" continueOnFail="false">
+          <Parameter xsi:type="EnumParameter" name="VariableType" value="ConstantValue" />
+          <Parameter xsi:type="StringParameter" name="SourceContent" value="0" />
+          <Parameter xsi:type="StringParameter" name="VariableName" value="HibernateOnBattery" />
+        </Statement>
+        <Statement description="Lid close actions: 0 - Do nothing; 1 - Sleep; 2  - Hibernate; 3 - Shut down" name="GetVariable" continueOnFail="false">
+          <Parameter xsi:type="EnumParameter" name="VariableType" value="ConstantValue" />
+          <Parameter xsi:type="StringParameter" name="SourceContent" value="0" />
+          <Parameter xsi:type="StringParameter" name="VariableName" value="LidCloseOnPower" />
+        </Statement>
+        <Statement name="GetVariable" continueOnFail="false">
+          <Parameter xsi:type="EnumParameter" name="VariableType" value="ConstantValue" />
+          <Parameter xsi:type="StringParameter" name="SourceContent" value="1" />
+          <Parameter xsi:type="StringParameter" name="VariableName" value="LidCloseOnBattery" />
+        </Statement>
+        <Statement description="Power button actions: 0 - Do nothing; 1 - Sleep; 2 - Hibernate; 3 - Shut down" name="GetVariable" continueOnFail="false">
+          <Parameter xsi:type="EnumParameter" name="VariableType" value="ConstantValue" />
+          <Parameter xsi:type="StringParameter" name="SourceContent" value="2" />
+          <Parameter xsi:type="StringParameter" name="VariableName" value="PowerButtonOnPower" />
+        </Statement>
+        <Statement name="GetVariable" continueOnFail="false">
+          <Parameter xsi:type="EnumParameter" name="VariableType" value="ConstantValue" />
+          <Parameter xsi:type="StringParameter" name="SourceContent" value="2" />
+          <Parameter xsi:type="StringParameter" name="VariableName" value="PowerButtonOnBattery" />
+        </Statement>
+        <Statement description="Actions&#xD;&#xA;Apply System unattended sleep" name="ExecuteShellCommand" continueOnFail="false">
+          <Parameter xsi:type="StringParameter" name="Command" value="powercfg /SETACVALUEINDEX SCHEME_CURRENT 238C9FA8-0AAD-41ED-83F4-97BE242C8F20 7bc4a2f9-d8fc-4469-b07b-33eb785aaca0 #SleepOnPower#" />
+          <Parameter xsi:type="EnumParameter" name="ExecuteAccount" value="System" />
+          <Parameter xsi:type="BooleanParameter" name="Is64Bit" value="False" />
+        </Statement>
+        <Statement name="ExecuteShellCommand" continueOnFail="false">
+          <Parameter xsi:type="StringParameter" name="Command" value="powercfg /SETDCVALUEINDEX SCHEME_CURRENT 238C9FA8-0AAD-41ED-83F4-97BE242C8F20 7bc4a2f9-d8fc-4469-b07b-33eb785aaca0 #SleepOnBattery#" />
+          <Parameter xsi:type="EnumParameter" name="ExecuteAccount" value="System" />
+          <Parameter xsi:type="BooleanParameter" name="Is64Bit" value="False" />
+        </Statement>
+        <Statement description="Apply Sleep after" name="ExecuteShellCommand" continueOnFail="false">
+          <Parameter xsi:type="StringParameter" name="Command" value="powercfg /change /standby-timeout-ac #StandbyOnPower#" />
+          <Parameter xsi:type="EnumParameter" name="ExecuteAccount" value="System" />
+          <Parameter xsi:type="BooleanParameter" name="Is64Bit" value="False" />
+        </Statement>
+        <Statement name="ExecuteShellCommand" continueOnFail="false">
+          <Parameter xsi:type="StringParameter" name="Command" value="powercfg /change /standby-timeout-dc #StandbyOnBattery#" />
+          <Parameter xsi:type="EnumParameter" name="ExecuteAccount" value="System" />
+          <Parameter xsi:type="BooleanParameter" name="Is64Bit" value="False" />
+        </Statement>
+        <Statement description="Apply Monitor" name="ExecuteShellCommand" continueOnFail="false">
+          <Parameter xsi:type="StringParameter" name="Command" value="powercfg /change /monitor-timeout-ac #DisplayOnPower#" />
+          <Parameter xsi:type="EnumParameter" name="ExecuteAccount" value="System" />
+          <Parameter xsi:type="BooleanParameter" name="Is64Bit" value="False" />
+        </Statement>
+        <Statement name="ExecuteShellCommand" continueOnFail="false">
+          <Parameter xsi:type="StringParameter" name="Command" value="powercfg /change /monitor-timeout-dc #DisplayOnBattery#" />
+          <Parameter xsi:type="EnumParameter" name="ExecuteAccount" value="System" />
+          <Parameter xsi:type="BooleanParameter" name="Is64Bit" value="False" />
+        </Statement>
+        <Statement description="Apply HDD" name="ExecuteShellCommand" continueOnFail="false">
+          <Parameter xsi:type="StringParameter" name="Command" value="powercfg /change /disk-timeout-ac #HDDOnPower#" />
+          <Parameter xsi:type="EnumParameter" name="ExecuteAccount" value="System" />
+          <Parameter xsi:type="BooleanParameter" name="Is64Bit" value="False" />
+        </Statement>
+        <Statement name="ExecuteShellCommand" continueOnFail="false">
+          <Parameter xsi:type="StringParameter" name="Command" value="powercfg /change /disk-timeout-dc #HDDOnBattery#" />
+          <Parameter xsi:type="EnumParameter" name="ExecuteAccount" value="System" />
+          <Parameter xsi:type="BooleanParameter" name="Is64Bit" value="False" />
+        </Statement>
+        <Statement description="Apply Hibernate" name="ExecuteShellCommand" continueOnFail="false">
+          <Parameter xsi:type="StringParameter" name="Command" value="powercfg /change /hibernate-timeout-ac #HibernateOnPower#" />
+          <Parameter xsi:type="EnumParameter" name="ExecuteAccount" value="System" />
+          <Parameter xsi:type="BooleanParameter" name="Is64Bit" value="False" />
+        </Statement>
+        <Statement name="ExecuteShellCommand" continueOnFail="false">
+          <Parameter xsi:type="StringParameter" name="Command" value="powercfg /change /hibernate-timeout-dc #HibernateOnBattery#" />
+          <Parameter xsi:type="EnumParameter" name="ExecuteAccount" value="System" />
+          <Parameter xsi:type="BooleanParameter" name="Is64Bit" value="False" />
+        </Statement>
+        <Statement description="Apply Lid action" name="ExecuteShellCommand" continueOnFail="false">
+          <Parameter xsi:type="StringParameter" name="Command" value="powercfg /SETACVALUEINDEX SCHEME_CURRENT 4f971e89-eebd-4455-a8de-9e59040e7347 5ca83367-6e45-459f-a27b-476b1d01c936 #LidCloseOnPower#" />
+          <Parameter xsi:type="EnumParameter" name="ExecuteAccount" value="System" />
+          <Parameter xsi:type="BooleanParameter" name="Is64Bit" value="False" />
+        </Statement>
+        <Statement name="ExecuteShellCommand" continueOnFail="false">
+          <Parameter xsi:type="StringParameter" name="Command" value="powercfg /SETDCVALUEINDEX SCHEME_CURRENT 4f971e89-eebd-4455-a8de-9e59040e7347 5ca83367-6e45-459f-a27b-476b1d01c936 #LidCloseOnBattery#" />
+          <Parameter xsi:type="EnumParameter" name="ExecuteAccount" value="System" />
+          <Parameter xsi:type="BooleanParameter" name="Is64Bit" value="False" />
+        </Statement>
+        <Statement description="Apply Power button action" name="ExecuteShellCommand" continueOnFail="false">
+          <Parameter xsi:type="StringParameter" name="Command" value="powercfg /SETACVALUEINDEX SCHEME_CURRENT 4f971e89-eebd-4455-a8de-9e59040e7347 7648efa3-dd9c-4e3e-b566-50f929386280 #PowerButtonOnPower#" />
+          <Parameter xsi:type="EnumParameter" name="ExecuteAccount" value="System" />
+          <Parameter xsi:type="BooleanParameter" name="Is64Bit" value="False" />
+        </Statement>
+        <Statement name="ExecuteShellCommand" continueOnFail="false">
+          <Parameter xsi:type="StringParameter" name="Command" value="powercfg /SETDCVALUEINDEX SCHEME_CURRENT 4f971e89-eebd-4455-a8de-9e59040e7347 7648efa3-dd9c-4e3e-b566-50f929386280 #PowerButtonOnBattery#" />
+          <Parameter xsi:type="EnumParameter" name="ExecuteAccount" value="System" />
+          <Parameter xsi:type="BooleanParameter" name="Is64Bit" value="False" />
+        </Statement>
+      </Body>
+    </Procedure>
+    <Procedure name="Windows - Set Power Options - Prompt for settings" treePres="3" id="956111601" folderId="695516444274939" treeFullPath="Kaseya Automation Team.Windows 10 Power Options">
+      <Body description="The procedure changes the settings of the active power plan to the values that you specify in minutes (except for the Lid actions).&#xA;Be aware that settings set by a GPO take precedence over settings set manually.&#xA;&#xA;Vladislav Semko">
+        <Statement description="The procedure changes the settings of the active power scheme to the values that you specify in minutes (except for the Lid and Power button actions).&#xD;&#xA;Be aware that settings set by a GPO take precedence over settings set manually.&#xD;&#xA;Version 0.1&#xD;&#xA;Get sleep parameters" name="GetVariable" continueOnFail="false">
+          <Parameter xsi:type="EnumParameter" name="VariableType" value="Prompt" />
+          <Parameter xsi:type="StringParameter" name="SourceContent" value="System Unattended Sleep Timeout (Plugged in)" />
+          <Parameter xsi:type="StringParameter" name="VariableName" value="SleepOnPower" />
+        </Statement>
+        <Statement name="GetVariable" continueOnFail="false">
+          <Parameter xsi:type="EnumParameter" name="VariableType" value="Prompt" />
+          <Parameter xsi:type="StringParameter" name="SourceContent" value="System Unattended Sleep Timeout (On battery)" />
+          <Parameter xsi:type="StringParameter" name="VariableName" value="SleepOnBattery" />
+        </Statement>
+        <Statement description="Get monitor parameters" name="GetVariable" continueOnFail="false">
+          <Parameter xsi:type="EnumParameter" name="VariableType" value="Prompt" />
+          <Parameter xsi:type="StringParameter" name="SourceContent" value="Turn off display (Plugged in)" />
+          <Parameter xsi:type="StringParameter" name="VariableName" value="DisplayOnPower" />
+        </Statement>
+        <Statement name="GetVariable" continueOnFail="false">
+          <Parameter xsi:type="EnumParameter" name="VariableType" value="Prompt" />
+          <Parameter xsi:type="StringParameter" name="SourceContent" value="Turn off display (On battery)" />
+          <Parameter xsi:type="StringParameter" name="VariableName" value="DisplayOnBattery" />
+        </Statement>
+        <Statement description="Get  get standby parameters" name="GetVariable" continueOnFail="false">
+          <Parameter xsi:type="EnumParameter" name="VariableType" value="Prompt" />
+          <Parameter xsi:type="StringParameter" name="SourceContent" value="Sleep after (Plugged in)" />
+          <Parameter xsi:type="StringParameter" name="VariableName" value="StandbyOnPower" />
+        </Statement>
+        <Statement name="GetVariable" continueOnFail="false">
+          <Parameter xsi:type="EnumParameter" name="VariableType" value="Prompt" />
+          <Parameter xsi:type="StringParameter" name="SourceContent" value="Sleep after (Plugged in)" />
+          <Parameter xsi:type="StringParameter" name="VariableName" value="StandbyOnBattery" />
+        </Statement>
+        <Statement description="Get HDD parameters" name="GetVariable" continueOnFail="false">
+          <Parameter xsi:type="EnumParameter" name="VariableType" value="Prompt" />
+          <Parameter xsi:type="StringParameter" name="SourceContent" value="Turn off hard disk (Plugged in)" />
+          <Parameter xsi:type="StringParameter" name="VariableName" value="HDDOnPower" />
+        </Statement>
+        <Statement name="GetVariable" continueOnFail="false">
+          <Parameter xsi:type="EnumParameter" name="VariableType" value="Prompt" />
+          <Parameter xsi:type="StringParameter" name="SourceContent" value="Turn off hard disk (On battery)" />
+          <Parameter xsi:type="StringParameter" name="VariableName" value="HDDOnBattery" />
+        </Statement>
+        <Statement description="Get Hibernate parameters" name="GetVariable" continueOnFail="false">
+          <Parameter xsi:type="EnumParameter" name="VariableType" value="Prompt" />
+          <Parameter xsi:type="StringParameter" name="SourceContent" value="Hibernate after (Plugged in)" />
+          <Parameter xsi:type="StringParameter" name="VariableName" value="HibernateOnPower" />
+        </Statement>
+        <Statement name="GetVariable" continueOnFail="false">
+          <Parameter xsi:type="EnumParameter" name="VariableType" value="Prompt" />
+          <Parameter xsi:type="StringParameter" name="SourceContent" value="Hibernate after (On battery)" />
+          <Parameter xsi:type="StringParameter" name="VariableName" value="HibernateOnBattery" />
+        </Statement>
+        <Statement description="Get Lid close parameters" name="GetVariable" continueOnFail="false">
+          <Parameter xsi:type="EnumParameter" name="VariableType" value="Prompt" />
+          <Parameter xsi:type="StringParameter" name="SourceContent" value="Lid close action (Plugged in): 0 - Do nothing; 1 - Sleep; 2 - Hibernate; 3 - Shut down" />
+          <Parameter xsi:type="StringParameter" name="VariableName" value="LidCloseOnPower" />
+        </Statement>
+        <Statement name="GetVariable" continueOnFail="false">
+          <Parameter xsi:type="EnumParameter" name="VariableType" value="Prompt" />
+          <Parameter xsi:type="StringParameter" name="SourceContent" value="Lid close action (On battery): 0 - Do nothing; 1 - Sleep; 2 - Hibernate; 3 - Shut down" />
+          <Parameter xsi:type="StringParameter" name="VariableName" value="LidCloseOnBattery" />
+        </Statement>
+        <Statement description="Get Power button parameters" name="GetVariable" continueOnFail="false">
+          <Parameter xsi:type="EnumParameter" name="VariableType" value="Prompt" />
+          <Parameter xsi:type="StringParameter" name="SourceContent" value="Power button action (Plugged in): 0 - Do nothing; 1 - Sleep; 2 - Hibernate; 3 - Shut down" />
+          <Parameter xsi:type="StringParameter" name="VariableName" value="PowerButtonOnPower" />
+        </Statement>
+        <Statement name="GetVariable" continueOnFail="false">
+          <Parameter xsi:type="EnumParameter" name="VariableType" value="Prompt" />
+          <Parameter xsi:type="StringParameter" name="SourceContent" value="Power button action (On battery): 0 - Do nothing; 1 - Sleep; 2 - Hibernate; 3 - Shut down" />
+          <Parameter xsi:type="StringParameter" name="VariableName" value="PowerButtonOnBattery" />
+        </Statement>
+        <Statement description="Actions&#xD;&#xA;Apply System unattended sleep" name="ExecuteShellCommand" continueOnFail="false">
+          <Parameter xsi:type="StringParameter" name="Command" value="powercfg /SETACVALUEINDEX SCHEME_CURRENT 238C9FA8-0AAD-41ED-83F4-97BE242C8F20 7bc4a2f9-d8fc-4469-b07b-33eb785aaca0 #SleepOnPower#" />
+          <Parameter xsi:type="EnumParameter" name="ExecuteAccount" value="System" />
+          <Parameter xsi:type="BooleanParameter" name="Is64Bit" value="False" />
+        </Statement>
+        <Statement name="ExecuteShellCommand" continueOnFail="false">
+          <Parameter xsi:type="StringParameter" name="Command" value="powercfg /SETDCVALUEINDEX SCHEME_CURRENT 238C9FA8-0AAD-41ED-83F4-97BE242C8F20 7bc4a2f9-d8fc-4469-b07b-33eb785aaca0 #SleepOnBattery#" />
+          <Parameter xsi:type="EnumParameter" name="ExecuteAccount" value="System" />
+          <Parameter xsi:type="BooleanParameter" name="Is64Bit" value="False" />
+        </Statement>
+        <Statement description="Apply Sleep after" name="ExecuteShellCommand" continueOnFail="false">
+          <Parameter xsi:type="StringParameter" name="Command" value="powercfg /change /standby-timeout-ac #StandbyOnPower#" />
+          <Parameter xsi:type="EnumParameter" name="ExecuteAccount" value="System" />
+          <Parameter xsi:type="BooleanParameter" name="Is64Bit" value="False" />
+        </Statement>
+        <Statement name="ExecuteShellCommand" continueOnFail="false">
+          <Parameter xsi:type="StringParameter" name="Command" value="powercfg /change /standby-timeout-dc #StandbyOnBattery#" />
+          <Parameter xsi:type="EnumParameter" name="ExecuteAccount" value="System" />
+          <Parameter xsi:type="BooleanParameter" name="Is64Bit" value="False" />
+        </Statement>
+        <Statement description="Apply Monitor" name="ExecuteShellCommand" continueOnFail="false">
+          <Parameter xsi:type="StringParameter" name="Command" value="powercfg /change /monitor-timeout-ac #DisplayOnPower#" />
+          <Parameter xsi:type="EnumParameter" name="ExecuteAccount" value="System" />
+          <Parameter xsi:type="BooleanParameter" name="Is64Bit" value="False" />
+        </Statement>
+        <Statement name="ExecuteShellCommand" continueOnFail="false">
+          <Parameter xsi:type="StringParameter" name="Command" value="powercfg /change /monitor-timeout-dc #DisplayOnBattery#" />
+          <Parameter xsi:type="EnumParameter" name="ExecuteAccount" value="System" />
+          <Parameter xsi:type="BooleanParameter" name="Is64Bit" value="False" />
+        </Statement>
+        <Statement description="Apply HDD" name="ExecuteShellCommand" continueOnFail="false">
+          <Parameter xsi:type="StringParameter" name="Command" value="powercfg /change /disk-timeout-ac #HDDOnPower#" />
+          <Parameter xsi:type="EnumParameter" name="ExecuteAccount" value="System" />
+          <Parameter xsi:type="BooleanParameter" name="Is64Bit" value="False" />
+        </Statement>
+        <Statement name="ExecuteShellCommand" continueOnFail="false">
+          <Parameter xsi:type="StringParameter" name="Command" value="powercfg /change /disk-timeout-dc #HDDOnBattery#" />
+          <Parameter xsi:type="EnumParameter" name="ExecuteAccount" value="System" />
+          <Parameter xsi:type="BooleanParameter" name="Is64Bit" value="False" />
+        </Statement>
+        <Statement description="Apply Hibernate" name="ExecuteShellCommand" continueOnFail="false">
+          <Parameter xsi:type="StringParameter" name="Command" value="powercfg /change /hibernate-timeout-ac #HibernateOnPower#" />
+          <Parameter xsi:type="EnumParameter" name="ExecuteAccount" value="System" />
+          <Parameter xsi:type="BooleanParameter" name="Is64Bit" value="False" />
+        </Statement>
+        <Statement name="ExecuteShellCommand" continueOnFail="false">
+          <Parameter xsi:type="StringParameter" name="Command" value="powercfg /change /hibernate-timeout-dc #HibernateOnBattery#" />
+          <Parameter xsi:type="EnumParameter" name="ExecuteAccount" value="System" />
+          <Parameter xsi:type="BooleanParameter" name="Is64Bit" value="False" />
+        </Statement>
+        <Statement description="Apply Lid action" name="ExecuteShellCommand" continueOnFail="false">
+          <Parameter xsi:type="StringParameter" name="Command" value="powercfg /SETACVALUEINDEX SCHEME_CURRENT 4f971e89-eebd-4455-a8de-9e59040e7347 5ca83367-6e45-459f-a27b-476b1d01c936 #LidCloseOnPower#" />
+          <Parameter xsi:type="EnumParameter" name="ExecuteAccount" value="System" />
+          <Parameter xsi:type="BooleanParameter" name="Is64Bit" value="False" />
+        </Statement>
+        <Statement name="ExecuteShellCommand" continueOnFail="false">
+          <Parameter xsi:type="StringParameter" name="Command" value="powercfg /SETDCVALUEINDEX SCHEME_CURRENT 4f971e89-eebd-4455-a8de-9e59040e7347 5ca83367-6e45-459f-a27b-476b1d01c936 #LidCloseOnBattery#" />
+          <Parameter xsi:type="EnumParameter" name="ExecuteAccount" value="System" />
+          <Parameter xsi:type="BooleanParameter" name="Is64Bit" value="False" />
+        </Statement>
+        <Statement description="Apply Power button action" name="ExecuteShellCommand" continueOnFail="false">
+          <Parameter xsi:type="StringParameter" name="Command" value="powercfg /SETACVALUEINDEX SCHEME_CURRENT 4f971e89-eebd-4455-a8de-9e59040e7347 7648efa3-dd9c-4e3e-b566-50f929386280 #PowerButtonOnPower#" />
+          <Parameter xsi:type="EnumParameter" name="ExecuteAccount" value="System" />
+          <Parameter xsi:type="BooleanParameter" name="Is64Bit" value="False" />
+        </Statement>
+        <Statement name="ExecuteShellCommand" continueOnFail="false">
+          <Parameter xsi:type="StringParameter" name="Command" value="powercfg /SETDCVALUEINDEX SCHEME_CURRENT 4f971e89-eebd-4455-a8de-9e59040e7347 7648efa3-dd9c-4e3e-b566-50f929386280 #PowerButtonOnBattery#" />
+          <Parameter xsi:type="EnumParameter" name="ExecuteAccount" value="System" />
+          <Parameter xsi:type="BooleanParameter" name="Is64Bit" value="False" />
+        </Statement>
+      </Body>
+    </Procedure>
+  </Folder>
+</ScriptExport>
